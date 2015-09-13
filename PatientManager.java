@@ -151,10 +151,10 @@ public class PatientManager extends JFrame{
 	}
 
 	public void add(){
-		if(nameField.getText().trim() != ""){
-			String name = nameField.getText().trim();
-		}else{
+		String name = nameField.getText().trim();
+		if(name.length() == 0){
 			JOptionPane.showMessageDialog(this, "Eggs are not supposed to be green.");
+			return;
 		}
 		String phone = phoneField.getText().trim();
 		String age = (String)ageList.getSelectedItem();
