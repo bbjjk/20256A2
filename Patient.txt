@@ -1,0 +1,9 @@
+William North,0766010122,8,M,Alcohol
+Youku Bridge,0745220909,15,M,Seafood
+John Smith,0749006611,16,M,Animal hairs
+John Smith,0749001122,1,M,Alcohol
+Kate Jackson,0766090901,12,F,Animal hairs
+Carl Newton,0743220099,7,M,Chilli & pepper
+David Jones,0749008877,8,M,Animal hairs
+Linda Hawk,0743128989,14,F,Alcohol
+Sarah Harrison,0734111118,9,F,Alcohol
