@@ -136,7 +136,6 @@ public class PatientManager extends JFrame{
 			String s;
 			while((s = br.readLine()) != null) {
 				if(s.length() != 0){
-					//mainTextArea.append(t.toString()+"\n");
 					PatientArray.add(Patient.load(s));
 				}
 			}
@@ -151,38 +150,50 @@ public class PatientManager extends JFrame{
 	}
 
 	public void add(){
-		if(nameField.getText().trim() != ""){
-			String name = nameField.getText().trim();
-		}else{
-			JOptionPane.showMessageDialog(this, "Eggs are not supposed to be green.");
-		}
+		String name = nameField.getText().trim();
 		String phone = phoneField.getText().trim();
-		String age = (String)ageList.getSelectedItem();
-		String gender = (String)genderList.getSelectedItem();
-		String source = (String)sourceList.getSelectedItem();
-		String patientString = String.format("%s,%s,%s,%s,%s,", name, phone, age, gender, source);
-		PatientArray.add(Patient.load(patientString));
-		display(PatientArray);
-		
-		//reset input fields
-		nameField.setText("");
-		phoneField.setText("");
-		ageList.setSelectedIndex(0);
-		genderList.setSelectedIndex(0);
-		sourceList.setSelectedIndex(0);
+		if(name.length() == 0 || phone.length() == 0){
+			JOptionPane.showMessageDialog(this, "Either name or phone not entered, Please enter them.");
+		}else{
+			LinkedList<Patient> tempArray = new LinkedList<Patient>(PatientArray);
+			Collections.sort(tempArray, new nameAndPhoneComparator());
+			if(Collections.binarySearch(tempArray, new Patient(name, phone), new nameAndPhoneComparator() < 0){
+				JOptionPane.showMessageDialog(this, "“Data entry existed! Re-input!");
+			}else{
+				String age = (String)ageList.getSelectedItem();
+				String gender = (String)genderList.getSelectedItem();
+				String source = (String)sourceList.getSelectedItem();
+				String patientString = String.format("%s,%s,%s,%s,%s,", name, phone, age, gender, source);
+				PatientArray.add(Patient.load(patientString));
+				display(PatientArray);
+				
+				//reset input fields
+				nameField.setText("");
+				phoneField.setText("");
+				ageList.setSelectedIndex(0);
+				genderList.setSelectedIndex(0);
+				sourceList.setSelectedIndex(0);
+			}
+		}
 	}
 
 	public void delete(){
 		String name = nameField.getText().trim();
 		String phone = phoneField.getText().trim();
-		LinkedList<Patient> tempArray = new LinkedList<Patient>(PatientArray);
-		Collections.sort(tempArray, new nameAndPhoneComparator());
-		int index = Collections.binarySearch(tempArray, new Patient(name, phone), new nameAndPhoneComparator());
-		System.out.println(index);
-		if(index >= 0){
-			PatientArray.remove(tempArray.get(index));
+		if(name.length() == 0 || phone.length() == 0){
+			JOptionPane.showMessageDialog(this, "Either name or phone not entered, Please enter them.");
+		}else{
+			LinkedList<Patient> tempArray = new LinkedList<Patient>(PatientArray);
+			Collections.sort(tempArray, new nameAndPhoneComparator());
+			int index = Collections.binarySearch(tempArray, new Patient(name, phone), new nameAndPhoneComparator());
+			if(index < 0){
+				JOptionPane.showMessageDialog(this, "Patient " + name + " not found");
+			}else{
+				PatientArray.remove(tempArray.get(index));
+				JOptionPane.showMessageDialog(this, "Patient " + name + " has ben deleted");
+				display(PatientArray);
+			}
 		}
-		display(PatientArray);
 	}
 
 	public void search(){
